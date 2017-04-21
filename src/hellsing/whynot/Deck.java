@@ -1,9 +1,8 @@
 package hellsing.whynot;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class Deck {
 	List<Card> deck = new ArrayList<Card>();
@@ -11,12 +10,8 @@ public class Deck {
 	public Deck() {
 		for (Suit s : Suit.values()) {
 			for (Rank r : Rank.values()) {
-				deck.add(new Card(r, s));
+				this.deck.add(new Card(r, s));
 			}
-		}
-
-		for (Card card : deck) {
-			System.out.println(card);
 		}
 	}
 	
@@ -27,10 +22,13 @@ public class Deck {
 	}
 	
 	public Card dealCard(){
-		int index = (int)(1+(Math.random() * deck.size()));
+		int index = (int)(1+(Math.random() * deck.size())-1);
 		
 		Card temp = deck.get(index);
 		return temp;
 		
+	}
+	public void shuffle(){
+		Collections.shuffle(deck);
 	}
 }

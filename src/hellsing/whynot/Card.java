@@ -69,5 +69,15 @@ public class Card {
 		return suit;
 	}
     
+	public int getValue(){
+		return rank.getWorth();
+	}
     
+	public void flipValueTo11(){
+		rank.setWorth(11);
+	}
+	
+	public void flipValueTo1(){
+		rank.setWorth(1);
+	}
 }

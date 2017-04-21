@@ -7,7 +7,7 @@ public enum Rank {
 
 	
 	private int worth;
-	private int worthAbove9;
+	private int worthAbove10;
 	
 	
 	private Rank(int worth) {
@@ -15,12 +15,24 @@ public enum Rank {
 	}
 
 
-	private Rank(int worth, int worthAbove9) {
+	private Rank(int worth, int worthAbove10) {
 		this.worth = worth;
-		this.worthAbove9 = worthAbove9;
+		this.worthAbove10 = worthAbove10;
+	}
+
+
+	public int getWorth() {
+		return worth;
+	}
+
+
+	public int getWorthAbove10() {
+		return worthAbove10;
 	}
 	
-	
+	public void setWorth(int i){
+		worth = i;
+	}
 	
 	
 

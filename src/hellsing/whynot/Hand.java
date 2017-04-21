@@ -13,19 +13,36 @@ public class Hand {
 	}
 	
 	
-	public List<Card> getHand(){
-		return cards;
+	public String getHand(){
+		StringBuilder sb = new StringBuilder();
+		for (Card card : cards) {
+			sb.append(card.toString() + " : ");
+		}
+		return sb.toString();
+	}
+	public String getHiddenHand(){
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i< cards.size()-1; i++) {
+			sb.append(cards.get(i).toString() + " : ");
+		}
+		return sb.toString();
 	}
 	
 	public void addCard(Card card){
 		cards.add(card);
 	}
 	
-	public String getHand(){
+	public List<Card> getCards(){
 		
-		return cards.toString();
-		
+		return cards;
 	}
+	
+	public int getnotHiddenDealerValue(){
+		return cards.get(0).getValue();
+	}
+	
+	
+
 	
 	
 }
