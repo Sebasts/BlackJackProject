@@ -21,6 +21,10 @@ public class BlackJack {
 		System.out.println("The card person is dealing the cards.");
 		dealer.getDeck().shuffle();
 		dealer.dealCards(dealer, player);
+		player.valuateHand();
+		player.reconcileValues();
+		dealer.valuateHand();
+		player.reconcileValues();
 		gameLogic();
 	}
 
@@ -29,6 +33,7 @@ public class BlackJack {
 		boolean gameOver = false;
 		int userChoice = 0;
 		firstHand(in);
+		
 	}
 
 	private boolean processUserChoice(int choice) {
@@ -36,9 +41,14 @@ public class BlackJack {
 		switch (choice) {
 		case 1:
 			dealer.dealSingleCard(player);
+			player.reconcileValues();
+			player.valuateHand();
 			return checkForWin();
 		case 0:
 			dealer.dealSingleCard(dealer);
+			player.reconcileValues();
+			player.valuateHand();
+			nextTurn();
 			return checkForWin();
 		}
 		return false;
@@ -47,21 +57,25 @@ public class BlackJack {
 
 	private boolean checkForWin() {
 		if (player.getValueOfHand() == 21 && dealer.getValueOfHand() != 21) {
-			System.out.println("Player has Won!");
+			displayPlayerCards();
+			System.out.println("Player has 21. Player has Won!");
 			return true;
-		} else if (dealer.getValueOfDealerHiddenHand() == 1) {
+		} else if (dealer.getValueOfDealerHiddenHand() == 11) {
 			if (dealer.getValueOfHand() - 11 == 10 && player.getValueOfHand() != 21) {
-				System.out.println("The cheater... I mean Dealer has Won!");
+				displayDealerCards();
+				System.out.println("Dealer has 21. The cheater... I mean Dealer has Won!");
 				return true;
 			}
 		} else if (player.getValueOfHand() == 21 && dealer.getValueOfHand() == 21) {
-			System.out.println("The game is a tie!");
+			System.out.println("The game is a tie! You both have 21!");
 			return true;
 		} else if (player.getValueOfHand() > 21) {
-			System.out.println("The cheater... I mean Dealer has Won!");
+			displayPlayerCards();
+			System.out.println("Player busts! The cheater... I mean Dealer has Won!");
 			return true;
 		} else if (dealer.getValueOfHand() > 21) {
-			System.out.println("The Player has Won!");
+			displayPlayerCards();
+			System.out.println("Dealer busts! The Player has Won!");
 			return true;
 		}
 		
@@ -85,6 +99,7 @@ public class BlackJack {
 
 			try {
 				userChoice = in.nextInt();
+				in.nextLine();
 			} catch (Exception e) {
 				System.err.println(
 						"That was not a valid input. You have been" + " beaten up ad thrown out of the game room.");
@@ -95,8 +110,8 @@ public class BlackJack {
 						"That was not a valid input. You have been" + " beaten up ad thrown out of the game room.");
 				System.exit(1);
 			}
-			processUserChoice(userChoice);
-			gameOver = checkForWin();
+			gameOver = processUserChoice(userChoice);
+			
 		}
 	}
 
@@ -107,7 +122,7 @@ public class BlackJack {
 		while (!gameOver) {
 
 			System.out.println("\nYour hand is ||" + player.getHand().getHand() + "||");
-			System.out.println("\n\n The dealer has ||" + dealer.getHand().getHand() + " and a card upside down||");
+			System.out.println("\n\n The dealer has ||" + dealer.getHand().getHand());
 			player.reconcileValues();
 			dealer.reconcileValues();
 			if (checkForWin()) {
@@ -130,6 +145,15 @@ public class BlackJack {
 			processUserChoice(userChoice);
 			gameOver = checkForWin();
 		}
+	}
+	
+	public void displayPlayerCards(){
+		System.out.println("\nYour hand is ||" + player.getHand().getHand() + "||");
+
+	}
+	public void displayDealerCards(){
+		System.out.println("\n\n The dealer has ||" + dealer.getHand().getHand());
+		
 	}
 
 	// public void boardUpdater(){

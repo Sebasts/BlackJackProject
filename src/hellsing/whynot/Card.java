@@ -70,7 +70,7 @@ public class Card {
 	}
     
 	public int getValue(){
-		return rank.getWorth();
+		return this.rank.getWorth();
 	}
     
 	public void flipValueTo11(){

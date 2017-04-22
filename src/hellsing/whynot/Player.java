@@ -55,7 +55,7 @@ public class Player {
 
 	public void valuateHand() {
 		
-		for(Card card : hand.getCards()){
+		for(Card card : this.hand.getCards()){
 			valueOfHand += card.getValue();
 		}
 	}
@@ -66,9 +66,9 @@ public class Player {
 		return hand.getnotHiddenDealerValue();
 	}
 	public void reconcileValues(){
-		for (Card card : hand.getCards()) {
+		for (Card card : this.hand.getCards()) {
 			if(card.getRank().equals(Rank.ACE)){
-				if(getValueOfHand() - 1 <= 10){
+				if(getValueOfHand() - 1 < 11){
 					card.flipValueTo11();
 				} else{
 					card.flipValueTo1();

@@ -26,9 +26,7 @@ public enum Rank {
 	}
 
 
-	public int getWorthAbove10() {
-		return worthAbove10;
-	}
+	
 	
 	public void setWorth(int i){
 		worth = i;

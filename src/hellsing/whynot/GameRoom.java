@@ -8,8 +8,8 @@ public class GameRoom implements CardGame {
 	}
 
 	public void playBlackJack(){
-		this.blackJack = new BlackJack();
-		blackJack.start();
+		 new BlackJack();
+		
 	}
 		
 }
