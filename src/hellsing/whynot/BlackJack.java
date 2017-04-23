@@ -28,8 +28,6 @@ public class BlackJack {
 
 	private void gameLogic() {
 		Scanner in = new Scanner(System.in);
-		boolean gameOver = false;
-		int userChoice = 0;
 		firstHand(in);
 		
 	}
@@ -42,10 +40,8 @@ public class BlackJack {
 			player.reconcileValues();
 			return checkForWin();
 		case 0:
-			dealer.dealSingleCard(dealer);
-			dealer.reconcileValues();
-			nextTurn();
-			return checkForWin();
+				dealerOpeningTurn();
+			return true;
 		}
 		return false;
 
@@ -70,7 +66,7 @@ public class BlackJack {
 			System.out.println("Player busts! The cheater... I mean Dealer has Won!");
 			return true;
 		} else if (dealer.getValueOfHand() > 21) {
-			displayPlayerCards();
+			displayDealerCards();
 			System.out.println("Dealer busts! The Player has Won!");
 			return true;
 		}
@@ -84,8 +80,6 @@ public class BlackJack {
 		while (!gameOver) {
 			System.out.println("\nYour hand is ||" + player.getHand().getHand() + "||");
 			System.out.println("\n\n The dealer has ||" + dealer.getDealersHand() + " and a card upside down||\n");
-			player.reconcileValues();
-			dealer.reconcileValues();
 
 			if (checkForWin()) {
 				return;
@@ -117,10 +111,9 @@ public class BlackJack {
 		int userChoice = 0;
 		while (!gameOver) {
 
-			System.out.println("\nYour hand is ||" + player.getHand().getHand() + "||");
-			System.out.println("\n\n The dealer has ||" + dealer.getHand().getHand());
-			player.reconcileValues();
-			dealer.reconcileValues();
+			System.out.println("\nYour hand is: " + player.getHand().getHand() );
+			System.out.println("\n\n The dealer has:  " + dealer.getHand().getHand());
+
 			if (checkForWin()) {
 				return;
 			}
@@ -142,6 +135,40 @@ public class BlackJack {
 			gameOver = checkForWin();
 		}
 	}
+	public void dealerOpeningTurn() {
+		
+		boolean gameOver = false;
+		while (!gameOver) {
+			
+			
+			System.out.println("\n\n The dealer has:  " + dealer.getHand().getHand());
+			
+			dealer.dealSingleCard(dealer);
+			dealer.reconcileValues();
+			System.out.println("The dealer hits.");
+			System.out.println("\n\n The dealer has:  " + dealer.getHand().getHand());
+			
+			while(dealer.getValueOfHand() <=17){
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				dealer.dealSingleCard(dealer);
+				dealer.reconcileValues();
+				System.out.println("The dealer hits.");
+				System.out.println("\n\n The dealer has:  " + dealer.getHand().getHand());
+				
+			}
+			if(checkForWin()){
+				return;
+			}
+			if(checkForWinAfterDealersTurn()){
+				return;
+			}
+		}
+	}
 	
 	public void displayPlayerCards(){
 		System.out.println("\nYour hand is ||" + player.getHand().getHand() + "||");
@@ -151,17 +178,17 @@ public class BlackJack {
 		System.out.println("\n\n The dealer has ||" + dealer.getHand().getHand());
 		
 	}
-	
-//	public void dealerDealsCardToThemselvesAgain(){
-//		if(dealer.get)
-//	}
 
-	// public void boardUpdater(){
-	// board = new ArrayList<>();
-	//
-	// }
 
-	// public void displayBoard(){
-	// }
-
+	private boolean checkForWinAfterDealersTurn() {
+		if(dealer.getValueOfHand() > player.getValueOfHand()){
+			System.out.println("Dealer has won!");
+			displayPlayerCards();
+			return true;
+		} else{
+			displayDealerCards();
+			System.out.println("Player has won!");
+			return true;
+		}
+	}
 }

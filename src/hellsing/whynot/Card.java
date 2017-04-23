@@ -74,7 +74,7 @@ public class Card {
 	}
     
 	public void flipValueTo11(){
-		rank.setWorth(11);
+		this.rank.setWorth(11);
 	}
 	
 	public void flipValueTo1(){

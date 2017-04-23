@@ -37,7 +37,9 @@ public class Player {
 		
 		Card temp = deck.dealCard();
 		player.addCardToHand(temp);
-		valuateHand(temp);
+		deck = new Deck();
+		deck.getDeck().remove(temp);
+		
 	}
 
 	public void addCardToHand(Card card) {
@@ -59,7 +61,12 @@ public class Player {
 
 	public void valuateHand(Card card) {
 		valueOfHand += card.getRank().getWorth();
-		
+	}
+	public void reevaluateHand(){
+		valueOfHand = 0;
+		for (Card card : hand.getCards()) {
+			valueOfHand += card.getRank().getWorth();
+		}
 	}
 	public int getValueOfHand(){
 		return valueOfHand;
@@ -70,10 +77,15 @@ public class Player {
 	public void reconcileValues(){
 		for (Card card : this.hand.getCards()) {
 			if(card.getRank().equals(Rank.ACE)){
-				if(getValueOfHand() - 1 < 11){
+				if((this.valueOfHand - 1) <= 10 || this.valueOfHand < 21){
 					card.flipValueTo11();
-				} else{
+					reevaluateHand();
+				} else if(this.valueOfHand > 21){
 					card.flipValueTo1();
+				}
+				else{
+					card.flipValueTo1();
+					reevaluateHand();
 				}
 			}
 		}
