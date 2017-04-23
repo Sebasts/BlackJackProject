@@ -34,11 +34,15 @@ public class Player {
 		}
 	}
 	public void dealSingleCard(Player player){
-		player.addCardToHand(deck.dealCard());
+		
+		Card temp = deck.dealCard();
+		player.addCardToHand(temp);
+		valuateHand(temp);
 	}
 
 	public void addCardToHand(Card card) {
 		hand.addCard(card);
+		valuateHand(card);
 	}
 
 	public Hand getHand() {
@@ -53,11 +57,9 @@ public class Player {
 		return deck;
 	}
 
-	public void valuateHand() {
+	public void valuateHand(Card card) {
+		valueOfHand += card.getRank().getWorth();
 		
-		for(Card card : this.hand.getCards()){
-			valueOfHand += card.getValue();
-		}
 	}
 	public int getValueOfHand(){
 		return valueOfHand;

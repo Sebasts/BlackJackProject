@@ -21,10 +21,8 @@ public class BlackJack {
 		System.out.println("The card person is dealing the cards.");
 		dealer.getDeck().shuffle();
 		dealer.dealCards(dealer, player);
-		player.valuateHand();
 		player.reconcileValues();
-		dealer.valuateHand();
-		player.reconcileValues();
+		dealer.reconcileValues();
 		gameLogic();
 	}
 
@@ -42,12 +40,10 @@ public class BlackJack {
 		case 1:
 			dealer.dealSingleCard(player);
 			player.reconcileValues();
-			player.valuateHand();
 			return checkForWin();
 		case 0:
 			dealer.dealSingleCard(dealer);
-			player.reconcileValues();
-			player.valuateHand();
+			dealer.reconcileValues();
 			nextTurn();
 			return checkForWin();
 		}
@@ -87,7 +83,7 @@ public class BlackJack {
 		int userChoice = 0;
 		while (!gameOver) {
 			System.out.println("\nYour hand is ||" + player.getHand().getHand() + "||");
-			System.out.println("\n\n The dealer has ||" + dealer.getDealersHand() + " and a card upside down||");
+			System.out.println("\n\n The dealer has ||" + dealer.getDealersHand() + " and a card upside down||\n");
 			player.reconcileValues();
 			dealer.reconcileValues();
 
@@ -155,6 +151,10 @@ public class BlackJack {
 		System.out.println("\n\n The dealer has ||" + dealer.getHand().getHand());
 		
 	}
+	
+//	public void dealerDealsCardToThemselvesAgain(){
+//		if(dealer.get)
+//	}
 
 	// public void boardUpdater(){
 	// board = new ArrayList<>();
