@@ -143,11 +143,11 @@ public class BlackJack {
 			
 			System.out.println("\n\n The dealer has:  " + dealer.getHand().getHand());
 			
-			while(dealer.getValueOfHand() <=17){
+			while(dealer.getValueOfHand() <=17 || dealer.getValueOfHand() < player.getValueOfHand()){
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(3500);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 				dealer.dealSingleCard(dealer);
