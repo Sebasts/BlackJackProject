@@ -143,11 +143,6 @@ public class BlackJack {
 			
 			System.out.println("\n\n The dealer has:  " + dealer.getHand().getHand());
 			
-			dealer.dealSingleCard(dealer);
-			dealer.reconcileValues();
-			System.out.println("The dealer hits.");
-			System.out.println("\n\n The dealer has:  " + dealer.getHand().getHand());
-			
 			while(dealer.getValueOfHand() <=17){
 				try {
 					Thread.sleep(2000);
@@ -185,7 +180,11 @@ public class BlackJack {
 			System.out.println("Dealer has won!");
 			displayPlayerCards();
 			return true;
-		} else{
+		} else if(dealer.getValueOfHand() == player.getValueOfHand()){
+			System.out.println("Thats a tie!");
+			return true;
+		}
+		else{
 			displayDealerCards();
 			System.out.println("Player has won!");
 			return true;

@@ -31,4 +31,9 @@ public class Deck {
 	public void shuffle(){
 		Collections.shuffle(deck);
 	}
+	public void showDeck(){
+		for (Card card : deck) {
+			System.out.println(card.toString());
+		}
+	}
 }
