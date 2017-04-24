@@ -143,7 +143,7 @@ public class BlackJack {
 			
 			System.out.println("\n\n The dealer has:  " + dealer.getHand().getHand());
 			
-			while(dealer.getValueOfHand() <=17 || dealer.getValueOfHand() < player.getValueOfHand()){
+			while(dealer.getValueOfHand() <=17) {
 				try {
 					Thread.sleep(3500);
 				} catch (InterruptedException e) {

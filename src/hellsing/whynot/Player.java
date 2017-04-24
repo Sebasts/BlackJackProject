@@ -40,6 +40,8 @@ public class Player {
 		deck = new Deck();
 		deck.getDeck().remove(temp);
 		
+		reconcileValues();
+		
 	}
 
 	public void addCardToHand(Card card) {
@@ -77,12 +79,10 @@ public class Player {
 	public void reconcileValues(){
 		for (Card card : this.hand.getCards()) {
 			if(card.getRank().equals(Rank.ACE)){
-				if((this.valueOfHand - 1) <= 10 || this.valueOfHand < 21){
+				if((this.valueOfHand - 1) <= 10 || this.valueOfHand > 21){
 					card.flipValueTo11();
 					reevaluateHand();
-				} else if(this.valueOfHand > 21){
-					card.flipValueTo1();
-				}
+				} 
 				else{
 					card.flipValueTo1();
 					reevaluateHand();
